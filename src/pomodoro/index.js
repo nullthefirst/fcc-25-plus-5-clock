@@ -9,8 +9,20 @@ class Pomodoro extends React.Component {
       <div id="content">
         <h1 id="title">25 + 5 clock</h1>
         <div id="control_panel">
-          <ControlElement title="Title" time="00" identity="break-label" />
-          <ControlElement title="Title" time="00" identity="session-label" />
+          <ControlElement
+            title="Break"
+            time="00"
+            identity="break-label"
+            increment="break-increment"
+            decrement="break-decrement"
+          />
+          <ControlElement
+            title="Session"
+            time="00"
+            identity="session-label"
+            increment="session-increment"
+            decrement="session-decrement"
+          />
         </div>
         <DisplayPanel title="Title" time="00:00" />
         <Footer />
