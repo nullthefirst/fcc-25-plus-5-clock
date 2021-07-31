@@ -3,10 +3,10 @@ import React from 'react';
 function ControlElement(props) {
   return (
     <div className="control-element">
-      <p class="ctrl-label">
+      <p class="ctrl-label" id={props.identity}>
         {props.title}
         <br />
-        Time (MINs)
+        (MINs)
       </p>
       <div className="controls">
         <span className="ctrl">
