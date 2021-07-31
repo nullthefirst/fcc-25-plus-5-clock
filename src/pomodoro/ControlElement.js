@@ -9,11 +9,17 @@ function ControlElement(props) {
         (MINs)
       </p>
       <div className="controls">
-        <span className="ctrl" id={props.increment}>
+        <span
+          className="ctrl"
+          id={props.increment}
+          onClick={props.increaseTime}>
           <i class="bi bi-arrow-bar-up"></i>
         </span>
         <span className="ctrl-display">{props.time}</span>
-        <span className="ctrl" id={props.decrement}>
+        <span
+          className="ctrl"
+          id={props.decrement}
+          onClick={props.decreaseTime}>
           <i class="bi bi-arrow-bar-down"></i>
         </span>
       </div>
