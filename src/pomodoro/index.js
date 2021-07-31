@@ -1,5 +1,6 @@
 import React from 'react';
 import ControlElement from './ControlElement';
+import DisplayPanel from './DisplayPanel';
 import Footer from './Footer';
 
 class Pomodoro extends React.Component {
@@ -11,21 +12,7 @@ class Pomodoro extends React.Component {
           <ControlElement title="Title" time="00" />
           <ControlElement title="Title" time="00" />
         </div>
-        <div id="display_panel">
-          <div>
-            <span className="display-label">Title</span>
-            <span className="timer-display">00:00</span>
-          </div>
-          <div className="timer-controls">
-            <span className="ctrl-alt">
-              <i class="bi bi-play"></i>
-              <i class="bi bi-pause"></i>
-            </span>
-            <span className="ctrl">
-              <i class="bi bi-arrow-repeat"></i>
-            </span>
-          </div>
-        </div>
+        <DisplayPanel title="Title" time="00:00" />
         <Footer />
       </div>
     );
