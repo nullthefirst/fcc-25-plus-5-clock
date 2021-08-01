@@ -11,6 +11,7 @@ class Pomodoro extends React.Component {
       breakTime: 5,
       sessionTime: 25,
       timerRunning: false,
+      timerFace: moment(new Date(2000, 1, 0, 0, 25, 0)),
     };
     this.breakTimeIncrease = this.breakTimeIncrease.bind(this);
     this.breakTimeDecrease = this.breakTimeDecrease.bind(this);
@@ -38,17 +39,24 @@ class Pomodoro extends React.Component {
 
   sessionTimeIncrease() {
     let sessionTimer = this.state.sessionTime;
+    let sessionCondition = sessionTimer < 60 ? sessionTimer + 1 : sessionTimer;
+    let timeCondition = sessionCondition > 59 ? [0, 1] : [sessionCondition, 0];
 
     this.setState({
-      sessionTime: sessionTimer < 60 ? sessionTimer + 1 : sessionTimer,
+      sessionTime: sessionCondition,
+      timerFace: moment(
+        new Date(2000, 1, 0, timeCondition[1], timeCondition[0], 0),
+      ),
     });
   }
 
   sessionTimeDecrease() {
     let sessionTimer = this.state.sessionTime;
+    let sessionCondition = sessionTimer > 1 ? sessionTimer - 1 : sessionTimer;
 
     this.setState({
-      sessionTime: sessionTimer > 1 ? sessionTimer - 1 : sessionTimer,
+      sessionTime: sessionCondition,
+      timerFace: moment(new Date(2000, 1, 0, 0, sessionCondition, 0)),
     });
   }
 
@@ -58,21 +66,38 @@ class Pomodoro extends React.Component {
     });
   }
 
+  beginCountdown() {}
+
   handleReset() {
     this.setState({
       breakTime: 5,
       sessionTime: 25,
+      timerFace: moment(new Date(2000, 1, 0, 0, 25, 0)),
     });
   }
 
-  timerDisplay() {
-    let minutes = `${this.state.sessionTime}`;
-
-    const timerValue = moment(minutes, 'mm').format('mm:ss');
-    return timerValue;
-  }
-
   render() {
+    // if (this.state.timerRunning) {
+    //   while (this.state.timerFace.isAfter(new Date(2000, 1, 0, 0, 0, 0))) {
+    //     setTimeout(() => {
+    //       console.log(
+    //         'hr: ' +
+    //           this.state.timerFace.hour().toString() +
+    //           ' | mins: ' +
+    //           this.state.timerFace.minutes().toString() +
+    //           ' | secs: ' +
+    //           this.state.timerFace.seconds().toString(),
+    //       );
+    //       this.state.timerFace.subtract(1, 'seconds');
+    //     }, 1000);
+    //   }
+    // }
+
+    const timeRelay =
+      this.state.timerFace.hour() < 1
+        ? this.state.timerFace.format('mm:ss')
+        : '60:00';
+
     return (
       <div id="content">
         <h1 id="title">Pomodoro Clock</h1>
@@ -100,7 +125,7 @@ class Pomodoro extends React.Component {
         </div>
         <DisplayPanel
           title="Session"
-          time={this.timerDisplay()}
+          time={timeRelay}
           timerControl={this.timerPlayAndPause}
           reset={this.handleReset}
         />

@@ -28,7 +28,9 @@ I can see an element with a corresponding id="session-length", which by default 
 
 I can see an element with a corresponding id="timer-label", that contains a string indicating a session is initialized (e.g. "Session").
 
-> #8
+> User Story # 8
+
+I can see an element with corresponding id="time-left". NOTE: Paused or running, the value in this field should always be displayed in mm:ss format (i.e. 25:00).
 
 > User Story # 9
 
