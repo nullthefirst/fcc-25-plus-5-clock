@@ -12,7 +12,7 @@ function DisplayPanel(props) {
         </span>
       </div>
       <div className="timer-controls">
-        <span className="ctrl-alt" id="start_stop">
+        <span className="ctrl-alt" onClick={props.timerControl} id="start_stop">
           <i className="bi bi-play"></i>
           <i className="bi bi-pause"></i>
         </span>

@@ -10,11 +10,13 @@ class Pomodoro extends React.Component {
     this.state = {
       breakTime: 5,
       sessionTime: 25,
+      timerRunning: false,
     };
     this.breakTimeIncrease = this.breakTimeIncrease.bind(this);
     this.breakTimeDecrease = this.breakTimeDecrease.bind(this);
     this.sessionTimeIncrease = this.sessionTimeIncrease.bind(this);
     this.sessionTimeDecrease = this.sessionTimeDecrease.bind(this);
+    this.timerPlayAndPause = this.timerPlayAndPause.bind(this);
     this.handleReset = this.handleReset.bind(this);
   }
 
@@ -50,6 +52,12 @@ class Pomodoro extends React.Component {
     });
   }
 
+  timerPlayAndPause() {
+    this.setState({
+      timerRunning: !this.state.timerRunning,
+    });
+  }
+
   handleReset() {
     this.setState({
       breakTime: 5,
@@ -67,7 +75,7 @@ class Pomodoro extends React.Component {
   render() {
     return (
       <div id="content">
-        <h1 id="title">25 + 5 clock</h1>
+        <h1 id="title">Pomodoro Clock</h1>
         <div id="control_panel">
           <ControlElement
             title="Break"
@@ -93,8 +101,12 @@ class Pomodoro extends React.Component {
         <DisplayPanel
           title="Session"
           time={this.timerDisplay()}
+          timerControl={this.timerPlayAndPause}
           reset={this.handleReset}
         />
+        <p style={{ marginTop: 50 }}>
+          timer running: {`${this.state.timerRunning}`}
+        </p>
         <Footer />
       </div>
     );
