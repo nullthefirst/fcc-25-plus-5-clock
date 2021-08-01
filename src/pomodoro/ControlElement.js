@@ -15,7 +15,9 @@ function ControlElement(props) {
           onClick={props.increaseTime}>
           <i class="bi bi-arrow-bar-up"></i>
         </span>
-        <span className="ctrl-display">{props.time}</span>
+        <span className="ctrl-display" id={props.length}>
+          {props.time}
+        </span>
         <span
           className="ctrl"
           id={props.decrement}

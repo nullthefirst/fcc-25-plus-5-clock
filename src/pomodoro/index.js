@@ -14,6 +14,7 @@ class Pomodoro extends React.Component {
     this.breakTimeDecrease = this.breakTimeDecrease.bind(this);
     this.sessionTimeIncrease = this.sessionTimeIncrease.bind(this);
     this.sessionTimeDecrease = this.sessionTimeDecrease.bind(this);
+    this.handleReset = this.handleReset.bind(this);
   }
 
   breakTimeIncrease() {
@@ -48,6 +49,13 @@ class Pomodoro extends React.Component {
     });
   }
 
+  handleReset() {
+    this.setState({
+      breakTime: 5,
+      sessionTime: 25,
+    });
+  }
+
   render() {
     return (
       <div id="content">
@@ -59,6 +67,7 @@ class Pomodoro extends React.Component {
             identity="break-label"
             increment="break-increment"
             decrement="break-decrement"
+            length="break-length"
             increaseTime={this.breakTimeIncrease}
             decreaseTime={this.breakTimeDecrease}
           />
@@ -68,11 +77,12 @@ class Pomodoro extends React.Component {
             identity="session-label"
             increment="session-increment"
             decrement="session-decrement"
+            length="session-length"
             increaseTime={this.sessionTimeIncrease}
             decreaseTime={this.sessionTimeDecrease}
           />
         </div>
-        <DisplayPanel title="Title" time="00:00" />
+        <DisplayPanel title="Session" time="00:00" reset={this.handleReset} />
         <Footer />
       </div>
     );
