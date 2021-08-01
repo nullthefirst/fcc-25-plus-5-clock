@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import ControlElement from './ControlElement';
 import DisplayPanel from './DisplayPanel';
 import Footer from './Footer';
@@ -56,6 +57,13 @@ class Pomodoro extends React.Component {
     });
   }
 
+  timerDisplay() {
+    let minutes = `${this.state.sessionTime}`;
+
+    const timerValue = moment(minutes, 'mm').format('mm:ss');
+    return timerValue;
+  }
+
   render() {
     return (
       <div id="content">
@@ -82,7 +90,11 @@ class Pomodoro extends React.Component {
             decreaseTime={this.sessionTimeDecrease}
           />
         </div>
-        <DisplayPanel title="Session" time="00:00" reset={this.handleReset} />
+        <DisplayPanel
+          title="Session"
+          time={this.timerDisplay()}
+          reset={this.handleReset}
+        />
         <Footer />
       </div>
     );

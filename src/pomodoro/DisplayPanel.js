@@ -13,11 +13,11 @@ function DisplayPanel(props) {
       </div>
       <div className="timer-controls">
         <span className="ctrl-alt" id="start_stop">
-          <i class="bi bi-play"></i>
-          <i class="bi bi-pause"></i>
+          <i className="bi bi-play"></i>
+          <i className="bi bi-pause"></i>
         </span>
         <span className="ctrl" onClick={props.reset} id="reset">
-          <i class="bi bi-arrow-repeat"></i>
+          <i className="bi bi-arrow-repeat"></i>
         </span>
       </div>
     </div>

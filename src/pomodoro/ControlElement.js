@@ -3,7 +3,7 @@ import React from 'react';
 function ControlElement(props) {
   return (
     <div className="control-element">
-      <p class="ctrl-label" id={props.identity}>
+      <p className="ctrl-label" id={props.identity}>
         {props.title}
         <br />
         (MINs)
@@ -13,7 +13,7 @@ function ControlElement(props) {
           className="ctrl"
           id={props.increment}
           onClick={props.increaseTime}>
-          <i class="bi bi-arrow-bar-up"></i>
+          <i className="bi bi-arrow-bar-up"></i>
         </span>
         <span className="ctrl-display" id={props.length}>
           {props.time}
@@ -22,7 +22,7 @@ function ControlElement(props) {
           className="ctrl"
           id={props.decrement}
           onClick={props.decreaseTime}>
-          <i class="bi bi-arrow-bar-down"></i>
+          <i className="bi bi-arrow-bar-down"></i>
         </span>
       </div>
     </div>
