@@ -63,3 +63,7 @@ I should not be able to set a session or break length to <= 0.
 > User Story # 17
 
 I should not be able to set a session or break length to > 60.
+
+> User Story # 18
+
+When I first click the element with id="start_stop", the timer should begin running from the value currently displayed in id="session-length", even if the value has been incremented or decremented from the original value of 25.
