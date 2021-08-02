@@ -17,8 +17,11 @@ class Pomodoro extends React.Component {
     this.breakTimeDecrease = this.breakTimeDecrease.bind(this);
     this.sessionTimeIncrease = this.sessionTimeIncrease.bind(this);
     this.sessionTimeDecrease = this.sessionTimeDecrease.bind(this);
-    this.timerPlayAndPause = this.timerPlayAndPause.bind(this);
     this.handleReset = this.handleReset.bind(this);
+    this.countdownAction = this.countdownAction.bind(this);
+    this.beginCountdown = this.beginCountdown.bind(this);
+    this.stopCountdown = this.stopCountdown.bind(this);
+    this.timerPlayAndPause = this.timerPlayAndPause.bind(this);
   }
 
   breakTimeIncrease() {
@@ -60,14 +63,6 @@ class Pomodoro extends React.Component {
     });
   }
 
-  timerPlayAndPause() {
-    this.setState({
-      timerRunning: !this.state.timerRunning,
-    });
-  }
-
-  beginCountdown() {}
-
   handleReset() {
     this.setState({
       breakTime: 5,
@@ -76,28 +71,34 @@ class Pomodoro extends React.Component {
     });
   }
 
+  countdownAction() {
+    // console.log(
+    //   'hr: ' +
+    //     this.state.timerFace.hour().toString() +
+    //     ' | mins: ' +
+    //     this.state.timerFace.minutes().toString() +
+    //     ' | secs: ' +
+    //     this.state.timerFace.seconds().toString(),
+    // );
+
+    this.setState({ timerFace: this.state.timerFace.subtract(1, 'seconds') });
+  }
+
+  beginCountdown() {
+    this.intervalId = setInterval(this.countdownAction, 1000);
+    this.setState({ timerRunning: true });
+  }
+
+  stopCountdown() {
+    clearInterval(this.intervalId);
+    this.setState({ timerRunning: false });
+  }
+
+  timerPlayAndPause() {
+    !this.state.timerRunning ? this.beginCountdown() : this.stopCountdown();
+  }
+
   render() {
-    // if (this.state.timerRunning) {
-    //   while (this.state.timerFace.isAfter(new Date(2000, 1, 0, 0, 0, 0))) {
-    //     setTimeout(() => {
-    //       console.log(
-    //         'hr: ' +
-    //           this.state.timerFace.hour().toString() +
-    //           ' | mins: ' +
-    //           this.state.timerFace.minutes().toString() +
-    //           ' | secs: ' +
-    //           this.state.timerFace.seconds().toString(),
-    //       );
-    //       this.state.timerFace.subtract(1, 'seconds');
-    //     }, 1000);
-    //   }
-    // }
-
-    const timeRelay =
-      this.state.timerFace.hour() < 1
-        ? this.state.timerFace.format('mm:ss')
-        : '60:00';
-
     return (
       <div id="content">
         <h1 id="title">Pomodoro Clock</h1>
@@ -125,7 +126,11 @@ class Pomodoro extends React.Component {
         </div>
         <DisplayPanel
           title="Session"
-          time={timeRelay}
+          time={
+            this.state.timerFace.hour() < 1
+              ? this.state.timerFace.format('mm:ss')
+              : '60:00'
+          }
           timerControl={this.timerPlayAndPause}
           reset={this.handleReset}
         />
