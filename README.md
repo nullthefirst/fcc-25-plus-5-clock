@@ -40,7 +40,9 @@ I can see a clickable element with a corresponding id="start_stop".
 
 I can see a clickable element with a corresponding id="reset".
 
-> #11
+> User Story # 11
+
+When I click the element with the id of reset, any running timer should be stopped, the value within id="break-length" should return to 5, the value within id="session-length" should return to 25, and the element with id="time-left" should reset to its default state.
 
 > User Story # 12
 
@@ -74,7 +76,9 @@ When I first click the element with id="start_stop", the timer should begin runn
 
 If the timer is running, the element with the id of time-left should display the remaining time in mm:ss format (decrementing by a value of 1 and updating the display every 1000ms).
 
-> #20
+> User Story # 20
+
+If the timer is running and I click the element with id="start_stop", the countdown should pause.
 
 > User Story # 21
 
