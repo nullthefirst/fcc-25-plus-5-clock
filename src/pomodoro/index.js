@@ -12,6 +12,7 @@ class Pomodoro extends React.Component {
       sessionTime: 25,
       timerRunning: false,
       timerFace: moment(new Date(2000, 1, 0, 0, 25, 0)),
+      title: 'Session',
     };
     this.breakTimeIncrease = this.breakTimeIncrease.bind(this);
     this.breakTimeDecrease = this.breakTimeDecrease.bind(this);
@@ -28,7 +29,11 @@ class Pomodoro extends React.Component {
     let breakTimer = this.state.breakTime;
 
     this.setState({
-      breakTime: breakTimer < 60 ? breakTimer + 1 : breakTimer,
+      breakTime: !this.state.timerRunning
+        ? breakTimer < 60
+          ? breakTimer + 1
+          : breakTimer
+        : breakTimer,
     });
   }
 
@@ -36,7 +41,11 @@ class Pomodoro extends React.Component {
     let breakTimer = this.state.breakTime;
 
     this.setState({
-      breakTime: breakTimer > 1 ? breakTimer - 1 : breakTimer,
+      breakTime: !this.state.timerRunning
+        ? breakTimer > 1
+          ? breakTimer - 1
+          : breakTimer
+        : breakTimer,
     });
   }
 
@@ -46,10 +55,10 @@ class Pomodoro extends React.Component {
     let timeCondition = sessionCondition > 59 ? [0, 1] : [sessionCondition, 0];
 
     this.setState({
-      sessionTime: sessionCondition,
-      timerFace: moment(
-        new Date(2000, 1, 0, timeCondition[1], timeCondition[0], 0),
-      ),
+      sessionTime: !this.state.timerRunning ? sessionCondition : sessionTimer,
+      timerFace: !this.state.timerRunning
+        ? moment(new Date(2000, 1, 0, timeCondition[1], timeCondition[0], 0))
+        : this.state.timerFace,
     });
   }
 
@@ -58,8 +67,11 @@ class Pomodoro extends React.Component {
     let sessionCondition = sessionTimer > 1 ? sessionTimer - 1 : sessionTimer;
 
     this.setState({
-      sessionTime: sessionCondition,
-      timerFace: moment(new Date(2000, 1, 0, 0, sessionCondition, 0)),
+      sessionTime: !this.state.timerRunning ? sessionCondition : sessionTimer,
+      // sessionTime: sessionCondition,
+      timerFace: !this.state.timerRunning
+        ? moment(new Date(2000, 1, 0, 0, sessionCondition, 0))
+        : this.state.timerFace,
     });
   }
 
@@ -75,15 +87,6 @@ class Pomodoro extends React.Component {
   }
 
   countdownAction() {
-    // console.log(
-    //   'hr: ' +
-    //     this.state.timerFace.hour().toString() +
-    //     ' | mins: ' +
-    //     this.state.timerFace.minutes().toString() +
-    //     ' | secs: ' +
-    //     this.state.timerFace.seconds().toString(),
-    // );
-
     this.setState({ timerFace: this.state.timerFace.subtract(1, 'seconds') });
   }
 
@@ -128,7 +131,7 @@ class Pomodoro extends React.Component {
           />
         </div>
         <DisplayPanel
-          title="Session"
+          title={this.state.title}
           time={
             this.state.timerFace.hour() < 1
               ? this.state.timerFace.format('mm:ss')
