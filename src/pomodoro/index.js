@@ -7,6 +7,7 @@ import Footer from './Footer';
 class Pomodoro extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       breakTime: 5,
       sessionTime: 25,
@@ -14,6 +15,7 @@ class Pomodoro extends React.Component {
       timerFace: moment(new Date(2000, 1, 2, 0, 25, 0)),
       title: 'Session',
     };
+
     this.breakTimeIncrease = this.breakTimeIncrease.bind(this);
     this.breakTimeDecrease = this.breakTimeDecrease.bind(this);
     this.sessionTimeIncrease = this.sessionTimeIncrease.bind(this);
@@ -22,6 +24,9 @@ class Pomodoro extends React.Component {
     this.countdownAction = this.countdownAction.bind(this);
     this.beginCountdown = this.beginCountdown.bind(this);
     this.stopCountdown = this.stopCountdown.bind(this);
+    this.breakAction = this.breakAction.bind(this);
+    this.beginBreak = this.beginBreak.bind(this);
+    this.stopBreak = this.stopBreak.bind(this);
     this.timerPlayAndPause = this.timerPlayAndPause.bind(this);
   }
 
@@ -82,7 +87,8 @@ class Pomodoro extends React.Component {
       timerRunning: false,
     });
 
-    clearInterval(this.intervalId);
+    clearInterval(this.intervalCountdownId);
+    clearInterval(this.intervalBreakId);
   }
 
   countdownAction() {
@@ -92,16 +98,46 @@ class Pomodoro extends React.Component {
 
     if (timerDisplay.innerHTML === '00:00') {
       this.stopCountdown();
+      this.setState({
+        title: 'Break',
+        timerFace: moment(new Date(2000, 1, 2, 0, this.state.breakTime, 0)),
+      });
+      this.beginBreak();
     }
   }
 
   beginCountdown() {
-    this.intervalId = setInterval(this.countdownAction, 1000);
+    this.intervalCountdownId = setInterval(this.countdownAction, 1000);
     this.setState({ timerRunning: true });
   }
 
   stopCountdown() {
-    clearInterval(this.intervalId);
+    clearInterval(this.intervalCountdownId);
+    this.setState({ timerRunning: false });
+  }
+
+  breakAction() {
+    this.setState({ timerFace: this.state.timerFace.subtract(1, 'seconds') });
+
+    const timerDisplay = document.querySelector('.timer-display');
+
+    if (timerDisplay.innerHTML === '00:00') {
+      this.stopBreak();
+      this.setState({
+        title: 'Session',
+        timerFace: moment(new Date(2000, 1, 2, 0, this.state.sessionTime, 0)),
+      });
+      this.beginCountdown();
+    }
+  }
+
+  beginBreak() {
+    this.intervalBreakId = setInterval(this.breakAction, 1000);
+    this.setState({ timerRunning: true });
+  }
+
+  stopBreak() {
+    clearInterval(this.intervalBreakId);
     this.setState({ timerRunning: false });
   }
 
