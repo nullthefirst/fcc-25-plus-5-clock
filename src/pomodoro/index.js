@@ -97,7 +97,7 @@ class Pomodoro extends React.Component {
 
     const timerDisplay = document.querySelector('.timer-display');
 
-    if (timerDisplay.innerHTML === '00:00') {
+    if (timerDisplay.innerHTML === '60:00') {
       this.stopCountdown();
       this.setState({
         title: 'Break',
@@ -122,7 +122,7 @@ class Pomodoro extends React.Component {
 
     const timerDisplay = document.querySelector('.timer-display');
 
-    if (timerDisplay.innerHTML === '00:00') {
+    if (timerDisplay.innerHTML === '60:00') {
       this.stopBreak();
       this.setState({
         title: 'Session',
