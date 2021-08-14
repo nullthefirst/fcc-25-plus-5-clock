@@ -11,6 +11,11 @@ function DisplayPanel(props) {
           {props.time}
         </span>
       </div>
+      <audio
+        id="beep"
+        src="./audio/mixkit-alarm-clock-beep-988.mp3"
+        type="audio/mpeg"
+      />
       <div className="timer-controls">
         <span className="ctrl-alt" onClick={props.timerControl} id="start_stop">
           <i className="bi bi-play"></i>
