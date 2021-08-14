@@ -28,6 +28,7 @@ class Pomodoro extends React.Component {
     this.beginBreak = this.beginBreak.bind(this);
     this.stopBreak = this.stopBreak.bind(this);
     this.timerPlayAndPause = this.timerPlayAndPause.bind(this);
+    this.playSound = this.playSound.bind(this);
   }
 
   breakTimeIncrease() {
@@ -88,8 +89,14 @@ class Pomodoro extends React.Component {
       title: 'Session',
     });
 
+    // clear timers
     clearInterval(this.intervalCountdownId);
     clearInterval(this.intervalBreakId);
+
+    // stop audio
+    const alarmSound = document.querySelector('#beep');
+    alarmSound.pause();
+    alarmSound.currentTime = 0;
   }
 
   countdownAction() {
@@ -98,6 +105,7 @@ class Pomodoro extends React.Component {
     const timerDisplay = document.querySelector('.timer-display');
 
     if (timerDisplay.innerHTML === '60:00') {
+      this.playSound();
       this.stopCountdown();
       this.setState({
         title: 'Break',
@@ -123,6 +131,7 @@ class Pomodoro extends React.Component {
     const timerDisplay = document.querySelector('.timer-display');
 
     if (timerDisplay.innerHTML === '60:00') {
+      this.playSound();
       this.stopBreak();
       this.setState({
         title: 'Session',
@@ -144,6 +153,11 @@ class Pomodoro extends React.Component {
 
   timerPlayAndPause() {
     !this.state.timerRunning ? this.beginCountdown() : this.stopCountdown();
+  }
+
+  playSound() {
+    const alarmSound = document.querySelector('#beep');
+    alarmSound.play();
   }
 
   render() {
