@@ -11,7 +11,7 @@ class Pomodoro extends React.Component {
       breakTime: 5,
       sessionTime: 25,
       timerRunning: false,
-      timerFace: moment(new Date(2000, 1, 0, 0, 25, 0)),
+      timerFace: moment(new Date(2000, 1, 2, 0, 25, 0)),
       title: 'Session',
     };
     this.breakTimeIncrease = this.breakTimeIncrease.bind(this);
@@ -68,9 +68,8 @@ class Pomodoro extends React.Component {
 
     this.setState({
       sessionTime: !this.state.timerRunning ? sessionCondition : sessionTimer,
-      // sessionTime: sessionCondition,
       timerFace: !this.state.timerRunning
-        ? moment(new Date(2000, 1, 0, 0, sessionCondition, 0))
+        ? moment(new Date(2000, 1, 2, 0, sessionCondition, 0))
         : this.state.timerFace,
     });
   }
@@ -79,7 +78,7 @@ class Pomodoro extends React.Component {
     this.setState({
       breakTime: 5,
       sessionTime: 25,
-      timerFace: moment(new Date(2000, 1, 0, 0, 25, 0)),
+      timerFace: moment(new Date(2000, 1, 2, 0, 25, 0)),
       timerRunning: false,
     });
 
@@ -88,6 +87,12 @@ class Pomodoro extends React.Component {
 
   countdownAction() {
     this.setState({ timerFace: this.state.timerFace.subtract(1, 'seconds') });
+
+    const timerDisplay = document.querySelector('.timer-display');
+
+    if (timerDisplay.innerHTML === '00:00') {
+      this.stopCountdown();
+    }
   }
 
   beginCountdown() {
