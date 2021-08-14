@@ -196,9 +196,6 @@ class Pomodoro extends React.Component {
           timerControl={this.timerPlayAndPause}
           reset={this.handleReset}
         />
-        <p style={{ marginTop: 50 }}>
-          timer running: {`${this.state.timerRunning}`}
-        </p>
         <Footer />
       </div>
     );
