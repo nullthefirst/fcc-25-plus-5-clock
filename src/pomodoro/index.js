@@ -85,6 +85,7 @@ class Pomodoro extends React.Component {
       sessionTime: 25,
       timerFace: moment(new Date(2000, 1, 2, 0, 25, 0)),
       timerRunning: false,
+      title: 'Session',
     });
 
     clearInterval(this.intervalCountdownId);
